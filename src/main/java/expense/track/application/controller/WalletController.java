@@ -22,13 +22,13 @@ public class WalletController {
         return walletService.getWalletDetails();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/walletById/{id}")
     public Wallet getWalletById(String userId) {
         return walletService.getWalletByEmailId(userId);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PutMapping("/updatewallet")
     public String updateWallet(UpdateWalletRequest updateWalletRequest) {
         walletService.updateWallet(updateWalletRequest);

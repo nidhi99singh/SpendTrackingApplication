@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class OrderRequest {
 
-    private LocalDateTime localDateTime;
     private String productId;
     private String userId;
     private Integer quantity;
@@ -34,10 +33,6 @@ public class OrderRequest {
         this.quantity = quantity;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -46,8 +41,4 @@ public class OrderRequest {
         this.email = email;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
-
-    }
 }

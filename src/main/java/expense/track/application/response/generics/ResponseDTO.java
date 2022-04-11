@@ -15,4 +15,7 @@ public interface ResponseDTO<T> {
     void setdata(T data);
 
     void setData(T data);
+
+
+
 }

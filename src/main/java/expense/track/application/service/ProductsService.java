@@ -1,4 +1,6 @@
 package expense.track.application.service;
+
+import expense.track.application.entity.Category;
 import expense.track.application.entity.Products;
 import expense.track.application.repository.CategoryRepository;
 import expense.track.application.repository.ProductsRepository;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import expense.track.application.exception.ValidationException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,14 +32,13 @@ public class ProductsService {
         product.setPrice(productsRequest.getPrice());
         product.setQuantity(productsRequest.getQuantity());
 
-        Products existingProduct=productsRepository.findByProductName(productsRequest.getProductName()).orElse(null);
-        if(Objects.isNull(existingProduct)) {
+        Products existingProduct = productsRepository.findByProductName(productsRequest.getProductName()).orElse(null);
+        if (Objects.isNull(existingProduct)) {
             product.setCategory(categoryRepository.getCategory(productsRequest.getCategoryName()));
             productsRepository.save(product);
             return "Product Added";
-        }
-        else
-            throw new ValidationException(HttpStatus.BAD_REQUEST.value(),"product with this Name already exist");
+        } else
+            throw new ValidationException(HttpStatus.BAD_REQUEST.value(), "product with this Name already exist");
 
     }
 
@@ -59,9 +61,9 @@ public class ProductsService {
     }
 
     public String deleteProductById(String id) throws ValidationException {
-       Products product=productsRepository.findById(id).orElse(null);
-       if(Objects.isNull(product))
-           throw new ValidationException(HttpStatus.BAD_REQUEST.value(), "Product does not exist");
+        Products product = productsRepository.findById(id).orElse(null);
+        if (Objects.isNull(product))
+            throw new ValidationException(HttpStatus.BAD_REQUEST.value(), "Product does not exist");
         productsRepository.deleteById(id);
         return id + ": Deleted from list";
     }
@@ -75,4 +77,10 @@ public class ProductsService {
         return product;
     }
 
+    public List<Products> getProductsByCategory(String category) {
+        String categoryId = categoryRepository.findByCategoryName(category);
+        List<Products> products = productsRepository.findByCategory(categoryId);
+
+        return products;
+    }
 }

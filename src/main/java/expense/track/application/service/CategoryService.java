@@ -13,8 +13,8 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public String saveCategory(CategoryRequest categoryRequest){
-        Category category=new Category();
+    public String saveCategory(CategoryRequest categoryRequest) {
+        Category category = new Category();
 
         category.setCategoryId(CommonUtils.generateUUID());
         category.setCategoryName(categoryRequest.getCategoryName());

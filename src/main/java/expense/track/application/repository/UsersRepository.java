@@ -17,10 +17,10 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     @Query("from Users where emailId=:emailId")
     public Users setUser(@Param("emailId") String emailId);
 
-    Users findUserByEmailIdAndPassword(String email, String password);
-
     @Query("from Users where userStatus=:userStatus")
     public List<Users> getUsersList(@Param("userStatus") String userStatus);
 
     Optional<Users> findByUserId(String userId);
+
+    Users findUserByEmailIdAndPassword(String email, String password);
 }

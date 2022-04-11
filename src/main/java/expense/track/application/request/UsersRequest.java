@@ -6,7 +6,7 @@ public class UsersRequest {
     private String lastName;
     private String password;
     private String email;
-    private int phoneNumber;
+    private Integer phoneNumber;
     private String userType;
 
     public String getPassword() {
@@ -41,11 +41,11 @@ public class UsersRequest {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

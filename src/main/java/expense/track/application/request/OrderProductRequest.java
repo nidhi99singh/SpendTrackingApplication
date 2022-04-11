@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 public class OrderProductRequest {
     private Integer orderId;
-    private LocalDateTime localDateTime;
     private Integer price;
     private Integer quantity;
     private Integer productId;
@@ -19,14 +18,6 @@ public class OrderProductRequest {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
-    }
-
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
     }
 
     public Integer getPrice() {

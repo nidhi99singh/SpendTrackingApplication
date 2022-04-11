@@ -44,9 +44,7 @@ public class UsersController {
     //login
     @PostMapping("/loginAndGenerateToken")
     public ResponseDTO<?> userLogIn(@RequestBody JwtRequest jwtRequest) throws Exception {
-        //  return usersService.userLogIn(usersRequest);
-
-        return responseUtil.ok(usersService.generateToken(jwtRequest), ApiResponseCode.SUCCESS);
+       return responseUtil.ok(usersService.generateToken(jwtRequest), ApiResponseCode.SUCCESS);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -63,9 +61,15 @@ public class UsersController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("purchaseHistory/{userId}")
-    public ResponseDTO<?> getPurchaseHistory(@PathVariable String userId) throws ValidationException {
-        return responseUtil.ok(usersService.getPurchaseHistory(userId), ApiResponseCode.SUCCESS);
+    @GetMapping("purchaseHistory/{userId}/{email}")
+    public ResponseDTO<?> getPurchaseHistory(@PathVariable String userId,@PathVariable String email) throws ValidationException {
+        return responseUtil.ok(usersService.getPurchaseHistory(userId,email), ApiResponseCode.SUCCESS);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PostMapping("userLogout/{email}")
+    public ResponseDTO<?> userLoggedOut(@PathVariable String email){
+        return responseUtil.ok(usersService.userLogout(email), ApiResponseCode.SUCCESS);
     }
 
 }

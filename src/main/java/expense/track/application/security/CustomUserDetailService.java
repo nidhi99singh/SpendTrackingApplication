@@ -29,13 +29,14 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found in database");
         }
-        CustomUsersDetail customUsersDetail=new CustomUsersDetail(user);
+        CustomUsersDetail customUsersDetail = new CustomUsersDetail(user);
 //        return customUsersDetail;
-return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), getAuthority(user));
     }
-    private Set getAuthority(Users user){
-        Set authorities=new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+ user.getUserRole()));
+
+    private Set getAuthority(Users user) {
+        Set authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserRole()));
         return authorities;
 
     }

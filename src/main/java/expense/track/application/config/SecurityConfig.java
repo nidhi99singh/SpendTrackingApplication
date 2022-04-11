@@ -49,10 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        ;
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
     }
 
 

@@ -13,6 +13,8 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
     public Category getCategory(@Param("categoryName") String categoryName);
 
 
+    @Query("select categoryId from Category where categoryName=:categoryName")
+    String findByCategoryName(@Param("categoryName") String categoryName);
 }
 
 

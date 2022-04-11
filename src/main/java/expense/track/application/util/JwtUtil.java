@@ -7,9 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";
-    private String AUTHORITIES_KEY="scopes";
+    private String AUTHORITIES_KEY = "scopes";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -50,9 +48,7 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject, Users users) {
 
         claims = Jwts.claims().setSubject(subject);
-//        claims.put("roles", Arrays.asList(new SimpleGrantedAuthority(users.getUserRole())));
         claims.put(AUTHORITIES_KEY, "ROLE_" + users.getUserRole());
-       // claims.put("roles", "ROLE_" + users.getUserRole());
         return Jwts.builder().setClaims(claims).setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
@@ -63,5 +59,7 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+
+
 
 }

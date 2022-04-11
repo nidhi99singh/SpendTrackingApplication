@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -28,4 +29,7 @@ public interface ProductsRepository extends JpaRepository<Products, String> {
     public Products setProduct(@Param("productId") String productId);
 
     Optional<Products> findByProductName(String productName);
+
+    @Query(value = "select * from products where category_id=:categoryId limit 5", nativeQuery = true)
+    List<Products> findByCategory(@Param("categoryId") String categoryId);
 }

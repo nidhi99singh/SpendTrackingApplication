@@ -28,19 +28,19 @@ public class ProductsController {
     ResponseUtil responseUtil;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/createproduct")
+    @PostMapping("/createProduct")
     public String newProduct(@RequestBody ProductsRequest productsRequest) throws ValidationException {
         return productsService.newProduct(productsRequest);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/getProducts")
     public List<Products> getAllProducts() {
         return productsService.getAllProducts();
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @ApiOperation(value = "Get by id")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
@@ -61,6 +61,12 @@ public class ProductsController {
     public ResponseDTO<?> deleteProductById(@PathVariable String id) throws ValidationException {
         //return productsService.deleteProductById(id);
         return responseUtil.ok(productsService.deleteProductById(id), ApiResponseCode.SUCCESS);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/getProductByCategory/{category}")
+    public ResponseDTO<?> getProductByCategory(@PathVariable String category) {
+        return responseUtil.ok(productsService.getProductsByCategory(category), ApiResponseCode.SUCCESS);
     }
 
 }
